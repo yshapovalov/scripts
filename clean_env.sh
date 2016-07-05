@@ -1,4 +1,6 @@
 #!/bin/bash
+source openrc
+
 PORTS=$(neutron port-list | grep snat | cut -d "|" -f 2)
 for port_uuid in $PORTS
 do 
@@ -10,3 +12,6 @@ for net_uuid in $NETS
 do
     neutron net-delte $net_uuid
 done
+
+PROJECT=$(openstack project list | grep demo | cut -d "|" -f 2)
+openstack project delte $PROJECT
